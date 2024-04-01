@@ -1,11 +1,26 @@
-import React from 'react'
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
 const Navbar = () => {
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <nav className="flex-between fixed z-50 w-full bg-dark-1 px-6 pyy-6 lg:px-10">
+      <Link href="/" className="flex items-center gap-1">
+        <Image
+          src={"/icons/log.svg"}
+          width={32}
+          height={32}
+          alt="Zoom logo"
+          className="max-sm:size-10"
+        />
+        <p className="text-[26px] font-extrabold text-white max-sm:hidden">
+          Zoom
+        </p>
+      </Link>
 
-export default Navbar
+      <div className="flex-between gap-5"></div>
+    </nav>
+  );
+};
+
+export default Navbar;
