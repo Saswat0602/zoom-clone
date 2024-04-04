@@ -15,7 +15,7 @@ const MeetingTypeList = () => {
   >(undefined);
 
   const createMeeting =()=>{
-    
+
 
   }
 
@@ -48,12 +48,13 @@ const MeetingTypeList = () => {
         className="bg-yellow-1"
         handleClick={() => router.push("/recordings")}
       />
-      <MeetingModal 
-      isOpen={meetingState==='isInstantMeeting'}
-      onClose={()=>{setMeetingState(undefined)}}
-      className="text-center"
-      buttonText="Start Meeting"
-      handleClick={createMeeting}
+     <MeetingModal
+        isOpen={meetingState === 'isInstantMeeting'}
+        onClose={() => setMeetingState(undefined)}
+        title="Start an Instant Meeting"
+        className="text-center"
+        buttonText="Start Meeting"
+        handleClick={createMeeting}
       />
     </section>
     
