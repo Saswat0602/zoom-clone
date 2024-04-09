@@ -1,33 +1,35 @@
-"use client";
+'use client';
+import { useState } from 'react';
 import {
   CallControls,
   CallParticipantsList,
-  CallingState,
   CallStatsButton,
+  CallingState,
   PaginatedGridLayout,
   SpeakerLayout,
   useCallStateHooks,
-} from "@stream-io/video-react-sdk";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
-import { useRouter, useSearchParams } from "next/navigation";
+} from '@stream-io/video-react-sdk';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Users, LayoutList } from 'lucide-react';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { LayoutList, Users } from "lucide-react";
-import Loader from "./Loader";
-import EndCallButton from "./EndCallButton";
-type CallLayoutType = "grid" | "speaker-left" | "speaker-right";
+} from './ui/dropdown-menu';
+import Loader from './Loader';
+import EndCallButton from './EndCallButton';
+import { cn } from '@/lib/utils';
+
+type CallLayoutType = 'grid' | 'speaker-left' | 'speaker-right';
 
 const MeetingRoom = () => {
   const searchParams = useSearchParams();
-  const isPersonalRoom = !!searchParams.get("personal");
+  const isPersonalRoom = !!searchParams.get('personal');
   const router = useRouter();
-  const [layout, setLayout] = useState<CallLayoutType>("speaker-left");
+  const [layout, setLayout] = useState<CallLayoutType>('speaker-left');
   const [showParticipants, setShowParticipants] = useState(false);
   const { useCallCallingState } = useCallStateHooks();
 
@@ -36,9 +38,9 @@ const MeetingRoom = () => {
 
   const CallLayout = () => {
     switch (layout) {
-      case "grid":
+      case 'grid':
         return <PaginatedGridLayout />;
-      case "speaker-right":
+      case 'speaker-right':
         return <SpeakerLayout participantsBarPosition="left" />;
       default:
         return <SpeakerLayout participantsBarPosition="right" />;
@@ -46,21 +48,21 @@ const MeetingRoom = () => {
   };
 
   return (
-    <section className="relative h-screen w-full overflow-hidden justify-center">
+    <section className="relative h-screen w-full overflow-hidden pt-4 text-white">
       <div className="relative flex size-full items-center justify-center">
-        <div className="flex size-full max-w-[1000px] items-center">
+        <div className=" flex size-full max-w-[1000px] items-center">
           <CallLayout />
         </div>
         <div
-          className={cn("h-[calc(100vh-86px)] hidden ml-2", {
-            "show-block": showParticipants,
+          className={cn('h-[calc(100vh-86px)] hidden ml-2', {
+            'show-block': showParticipants,
           })}
         >
           <CallParticipantsList onClose={() => setShowParticipants(false)} />
         </div>
       </div>
-
-      <div className="fixed bottom-0 flex w-full items-center justify-center gap-5 flex-wrap">
+      {/* video layout and call controls */}
+      <div className="fixed bottom-0 flex w-full items-center justify-center gap-5">
         <CallControls onLeave={() => router.push(`/`)} />
 
         <DropdownMenu>
@@ -70,7 +72,7 @@ const MeetingRoom = () => {
             </DropdownMenuTrigger>
           </div>
           <DropdownMenuContent className="border-dark-1 bg-dark-1 text-white">
-            {["Grid", "Speaker-Left", "Speaker-Right"].map((item, index) => (
+            {['Grid', 'Speaker-Left', 'Speaker-Right'].map((item, index) => (
               <div key={index}>
                 <DropdownMenuItem
                   onClick={() =>
